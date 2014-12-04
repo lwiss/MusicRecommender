@@ -9,10 +9,12 @@ load songTrain;
 % Test data for Strong generalization
 % keep 10% of users for testing as 'new users'
 % You should decide on your own how many new users you want to test on
+Tr_Te_proportion=0.1;
+
 setSeed(1);
 nU = size(Ytrain,1);
 idx = randperm(nU);
-nTe = floor(nU*0.1); 
+nTe = floor(nU*Tr_Te_proportion); 
 idxTe = idx(1:nTe);
 idxTr = idx(nTe+1:end);
 Ytrain_new = Ytrain(idxTr,:);
@@ -28,10 +30,11 @@ dd = [];
 nn = [];
 yy = [];
 for n = 1:N
-    On = find(Ytrain_new(:,n)~=0);
-    if length(On)>2
+    On = find(Ytrain_new(:,n)~=0); % finds all users that have listened to this artist
+    if length(On)>2 % if there are more than two users 
+        %then
         ind = unidrnd(length(On),numD,1); % choose some for testing
-        d = On(ind);
+        d = On(ind); % indices of user 
         dd = [dd; d];
         nn = [nn; n*ones(numD,1)];
         yy = [yy; Ytrain_new(d,n)];
@@ -39,4 +42,3 @@ for n = 1:N
 end
 Ytest_weak = sparse(dd,nn,yy,D,N);
 Ytrain_new(sub2ind([D N], dd, nn)) = 0;
-

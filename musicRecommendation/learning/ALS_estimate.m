@@ -1,0 +1,1 @@
+% Step 1 : Initialize matrix Z by assigning the average count 
