@@ -1,31 +1,31 @@
+function [RMSE_Tr,U,A,nu_i,na_j] = ALS_estimate(X,lambda,Nf,MAX_ITER)
+% X a Gaussian normalized data set. X (DxN)
+% lambda is the regualrization parameter. Must be fixed using CV
+% Nf is the number of hidden features we want to extract. Fixed using CV
+  
+    N=size(X,2); % # of artists
+    A=[mean(X) ; rand(Nf-1,N)]; % initialize A
+    epsilon=10^-5; %stopping criterion 
+    cost_func_old=0;
+    L=zeros(1,MAX_ITER);
 
-% Step 1 : Initialize matrix A by assigning the average count for that 
-% artist as the first row, and small random numbers for the remaining entries.
+    for iter=1:MAX_ITER
+        
+        [U,nu_i]=updateU(X,A,lambda,Nf);
+        
+        [A,na_j]=updateA(X,U,lambda,Nf);
+        
+        L(iter)=cost_func(X,U,A,lambda,nu_i,na_j);
+        
+        if abs(L(iter)-cost_func_old)<epsilon
+            fprintf('the algorithm has converged\n');
+            break
+        end
+        cost_func_old=L(iter);
+        fprintf('cost function %d\n',cost_func_old);
 
-cleaning_data;
-fprintf 'ALS_estimate script\n';
-MAX_ITER=10; % the maximum number of iterations to stop the algorithm even 
-             % if it has not reached the stopping criterion 
-
-lambda=1; % regularization term              
-X=Ytrain_norm; % the training set
-N_counts=nnz(X); % # of non zero elements of X
-Nf=10; % # of features
-N=size(X,2); % # of artists
-D=size(X,1); % # of users
-
-A=[mean(X) ; rand(Nf-1,N)]; % initialize A
-
-% cost_func_old=0;
- L=zeros(1,MAX_ITER);
-
-for iter=1:MAX_ITER
-    iter
-    U=updateU(X,A,lambda,Nf);
+    end
     
-    A=updateA(X,U,lambda,Nf);
-    
-    %L(iter)=cost_func(X,U,A,lambda);
-    %L(iter)
-    
+    RMSE_Tr=L(iter);
+
 end

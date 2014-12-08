@@ -1,4 +1,4 @@
-function A = updateA(X, U, lambda,Nf)
+function [A,na_j] = updateA(X, U, lambda,Nf)
 % updates the matrix A (NxM) which in our case corresponds to the artist
 % matrix.
 % Nf = number of hidden features we want to extract
@@ -8,13 +8,14 @@ function A = updateA(X, U, lambda,Nf)
     lamI = lambda * eye(Nf);
     A = zeros(Nf,N);
     A = single(A);
-    for j = 1:N
+    na_j=zeros(1,N);
+    parfor j = 1:N
         users = find(X(:,j));
+        na_j(j)=length(users);
         Uj = U(:, users);
         vector = Uj * full(X(users, j));
-        matrix = Uj * Uj' + length(users) * lamI;
+        matrix = Uj * Uj' + na_j(j) * lamI;
         res = matrix \ vector;
         A(:, j) = res;
     end
-    %done
 end
