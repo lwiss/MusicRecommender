@@ -6,7 +6,6 @@ function U = updateU(X, A, lambda,Nf)
 % A (N) is fixed and correspond to the artist matrix 
     D=size(X,1);
     lamI = lambda * eye(Nf);
-    disp '1111'
     U = zeros(Nf,D);
     U = single(U);
     for i = 1:D

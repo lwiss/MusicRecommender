@@ -22,10 +22,10 @@ A=[mean(X) ; rand(Nf-1,N)]; % initialize A
 for iter=1:MAX_ITER
     iter
     U=updateU(X,A,lambda,Nf);
-    disp 'aaaaaaaaaaaaaa'
+    
     A=updateA(X,U,lambda,Nf);
     
-    L(iter)=cost_func(X,U,A,lambda);
-    L(iter)
+    %L(iter)=cost_func(X,U,A,lambda);
+    %L(iter)
     
 end
