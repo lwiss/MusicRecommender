@@ -16,8 +16,8 @@ Ytrain_norm=cleaning_data(Ytrain_new); %clean only the actual train set
 
 % now make cross valication on this set Ytrain_norm
 
-Nf= linspace (2,100,20);
-lambda= logspace(-2,2,20);
+Nf= ceil(linspace (2,100,10));
+lambda= logspace(-2,2,10);
 K=10; % # of folds
 subRMSE=zeros(2,K); % 1st line stores the train RMSE and 2nd stores the test RMSE
 meanRMSE_Te=zeros(length(Nf),length(lambda));
@@ -34,9 +34,13 @@ for i=1:length(Nf)
         end 
         meanRMSE_Tr(i,j)=mean(subRMSE(1,:));
         meanRMSE_Te(i,j)=mean(subRMSE(2,:));
+        fprintf('i=%d,j=%d lambda = %.2f Nf = %d TestRMSE %f \n',i,j,...
+                lambda(j),Nf(i),meanRMSE_Te(i,j));
     end
     
 end 
 
 [L_star,ind_star]=min(meanRMSE_Te(:));
-[Nf_star,lambda_star]=ind2sub(length(Nf),length(lambda),ind_star);
+[Nf_star,lambda_star]=ind2sub([length(Nf),length(lambda)],ind_star);
+% now we have our estimate for the hyper params we can estimate the actual
+% RMSE on the test data (weak and strong )

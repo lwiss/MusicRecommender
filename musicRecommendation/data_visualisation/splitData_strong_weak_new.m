@@ -22,7 +22,7 @@ Gstrong = Gtrain(idxTe, [idxTr idxTe]);
 
 % Test data for weak generalization
 % Keep 5 entries per existing artist as test data
-[D N] = size(Ytrain_new);
+[D, N] = size(Ytrain_new);
 numD = 5; % number of users held out per artist
 dd = [];
 nn = [];
