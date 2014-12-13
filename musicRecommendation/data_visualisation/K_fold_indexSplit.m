@@ -1,4 +1,4 @@
-function idxCV= K_fold_indexSplit(Y,K)
+function [idx,Nk]= K_fold_indexSplit(Y,K)
 % the data splits indexs  
 % split data in K fold (we will only create indices)
 % Input: Y the actual data set 
@@ -8,9 +8,6 @@ function idxCV= K_fold_indexSplit(Y,K)
     [D,~] = size(Y);
     idx = randperm(D);
     Nk = floor(D/K);
-    idxCV=zeros(K,Nk);
-    for k = 1:K
-        idxCV(k,:) = idx(1+(k-1)*Nk:k*Nk);
-    end
+
 
 end 

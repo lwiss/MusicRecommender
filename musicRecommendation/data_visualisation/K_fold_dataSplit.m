@@ -1,4 +1,4 @@
-function [ Ytest_strong,Ytest_weak,Ytrain_new, Gtrain_new, Gstrong ] = K_fold_dataSplit(Y,G,idx,k)
+function [ Ytest_strong,Ytest_weak,Ytrain_new, Gtrain_new, Gstrong ] = K_fold_dataSplit(Y,G,idx,k,Nk)
 %K_fold_dataSplit creates a test set and a train set
 %   Input: Y is the data set 
 %          idx is the indexes of the different test set that we want ot
@@ -9,10 +9,9 @@ function [ Ytest_strong,Ytest_weak,Ytrain_new, Gtrain_new, Gstrong ] = K_fold_da
 %           Ytest_weak mimics the unseen data for users in the database 
 %           Ytrain_new the reamining data (will be used to train the model)
 
-    idxTe = idx(k,:); % we take the k-th test indexes
+    idxTe = idx(1+(k-1)*Nk:k*Nk); % we take the k-th test indexes
     idxTr = idx;
-    idxTr(k,:)=[]; % training indexes are the remaining ones
-    idxTr = idxTr(:)';  
+    idxTr(1+(k-1)*Nk:k*Nk)=[]; % training indexes are the remaining ones
     Ytrain_new = Y(idxTr,:); 
     Ytest_strong = Y(idxTe,:);
     Gtrain_new = G(idxTr, idxTr);
