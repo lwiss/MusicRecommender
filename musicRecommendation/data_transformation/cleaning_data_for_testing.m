@@ -25,8 +25,8 @@ function [Y_norm, I, y_mu,y_std] = cleaning_data_for_testing(Y)
     
     % normalize the data
     [i,j,s]=find(Y_transformed);
-    y_mu=mean(s);
-    y_std=std(s);
+    y_mu=0;%mean(s);
+    y_std=1;%std(s);
     ss=(s-y_mu)/y_std;
     Y_norm=sparse(i,j,ss);
 

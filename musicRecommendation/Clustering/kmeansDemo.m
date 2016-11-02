@@ -12,13 +12,13 @@ X=bsxfun(@times,X,1./std(X,0,2));
 
 
 
-% % plot data
-% plot(X(1,:), X(2,:), 'ko', 'markersize', 5, 'markerfacecolor', 'k');
-% grid on;
-% %axis([-2.5 2.5 -2.5 2.5]);
-% %set(gca, 'xtick', [-2:2],'ytick', [-2:2])
-% fprintf('press any key to continue...');
-% pause;
+% plot data
+plot(X(1,:), X(2,:), 'ko', 'markersize', 5, 'markerfacecolor', 'k');
+grid on;
+%axis([-2.5 2.5 -2.5 2.5]);
+%set(gca, 'xtick', [-2:2],'ytick', [-2:2])
+fprintf('press any key to continue...');
+pause;
 
 % initialize
 MuOld = randn(Nf,K);
@@ -44,12 +44,12 @@ for i = 1:maxIters
    end 
    Lold=L(i);
   % visualize clusters
-%   hold off;
-%   plotClusters(X, r, MuOld, colors)
-%   pause(.5); 
-%   hold off;
-%   plotClusters(X, r, Mu, colors)
-%   pause(.5); 
+  hold off;
+  plotClusters(X, r, MuOld, colors)
+  pause(.5); 
+  hold off;
+  plotClusters(X, r, Mu, colors)
+  pause(.5); 
 
   % new mean is the old mean now
   MuOld = Mu;

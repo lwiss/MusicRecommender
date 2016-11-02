@@ -6,7 +6,8 @@ function RMSE = cost_func_testing( X,X_pred)% ,U, A, lambda,nu_i,na_j)
     %X_pred = U'*A;
     subL_emp=zeros(1,length(i));
     parfor k=1:length(i)
-      subL_emp(k)  =(x(k)-X_pred(i(k),j(k)))^2;
+      %subL_emp(k)  =(x(k)-X_pred(i(k),j(k)))^2;
+      subL_emp(k)  =abs(log(x(k))-log(X_pred(i(k),j(k))));
     end
 %     x_pred=X_pred(i,j);
 %     L_emp2=(x(:)-x_pred(:)).^2;
@@ -17,7 +18,7 @@ function RMSE = cost_func_testing( X,X_pred)% ,U, A, lambda,nu_i,na_j)
 %     normU=sum(nu_i.*normU);
 %     normA=sum(na_j.*normA);
     
-    RMSE=sqrt(L_emp );%+ lambda*(normU+normA));
+    RMSE=L_emp;%sqrt(L_emp );%+ lambda*(normU+normA));
     
 end
 

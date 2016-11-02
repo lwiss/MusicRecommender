@@ -18,11 +18,11 @@ function [RMSE_Tr,U,A,nu_i,na_j] = ALS_estimate(X,lambda,Nf,MAX_ITER)
         L(iter)=cost_func(X,U,A,lambda,nu_i,na_j);
         
         if L(iter)-cost_func_old<epsilon
-            fprintf('the algorithm has converged in %d iterations L=%d\n',iter,cost_func_old);
+            fprintf('the algorithm has converged in %d iterations L=%d\n',iter,L(iter));
             break
         end
         cost_func_old=L(iter);
-       % fprintf('cost function%d %d\n',iter,cost_func_old);
+        fprintf('cost function%d %d\n',iter,cost_func_old);
 
     end
     
